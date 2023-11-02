@@ -1,0 +1,26 @@
+version: "3.7"
+services:
+  web-server:
+    build:
+      dockerfile: php.Dockerfile
+      context: .
+    restart: always
+    volumes:
+      - "./html:/var/www/html"
+    ports:
+      - "8080:80"
+  mysql-server:
+    image: mysql:8.0.35-debian
+    restart: always
+    volumes:
+      - mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+  adminer:
+    image: adminer:4.8.1
+    restart: always
+    ports:
+      - "8090:8080"
+
+volumes:
+  mysql-data:
