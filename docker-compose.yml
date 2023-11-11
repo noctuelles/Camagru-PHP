@@ -1,16 +1,48 @@
 version: "3.7"
 services:
-  web-server:
+  nginx:
     build:
-      dockerfile: php.Dockerfile
-      context: .
-    restart: always
-    volumes:
-      - "./html:/var/www/html"
+      context: images/nginx
+      args:
+        - NGINX_VERSION=${NGINX_VERSION}
     ports:
-      - "8080:80"
+      - '8080:80'
+    volumes:
+      - ./src:/var/www/html
+  composer:
+    image: composer:${COMPOSER_VERSION}
+    restart: no
+    environment:
+      - COMPOSER_CACHE_DIR=/var/www/html/images/composer/.cache
+    volumes:
+      - ./:/var/www/html
+    working_dir: /var/www/html
+  php:
+    image: php:${PHP_VERSION}-cli
+    restart: no
+    volumes:
+      - ./:/var/www/html
+    working_dir: /var/www/html
+  php-unit:
+    image: php:${PHP_VERSION}-cli
+    restart: no
+    volumes:
+      - ./:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: vendor/bin/phpunit
+  php-fpm:
+    build:
+      context: images/php
+      args:
+        - PHP_VERSION=${PHP_VERSION}
+    volumes:
+      - ./src:/var/www/html
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    environment:
+      - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
   mysql-server:
-    image: mysql:8.0.35-debian
+    image: mysql:${MYSQL_VERSION}
     restart: always
     volumes:
       - mysql-data:/var/lib/mysql
@@ -19,6 +51,8 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - '3306:3306'
   adminer:
     image: adminer:4.8.1
     restart: always
