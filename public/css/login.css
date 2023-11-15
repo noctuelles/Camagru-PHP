@@ -1,0 +1,15 @@
+#login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#login-form {
+    width: 100%;
+}
+
+#register-text {
+    color: #aaaaaa;
+    font-size: 0.8rem;
+}

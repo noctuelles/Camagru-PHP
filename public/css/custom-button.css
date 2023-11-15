@@ -1,0 +1,27 @@
+.custom-button {
+    width: 100%;
+    cursor: pointer;
+    padding: 10px;
+    box-shadow: 0 0 20px rgba(var(--main-color), 0.2);
+    transition: 0.4s;
+    appearance: none;
+
+    color: rgb(104, 85, 224);
+    background-color: rgba(255, 255, 255, 1);
+    border: 1px solid rgba(var(--main-color), 1);
+    border-radius: 4px;
+
+    margin: 25px 0;
+}
+
+.custom-button:hover {
+    color: white;
+    box-shadow: 0 0 20px rgba(var(--main-color), 0.6);
+    background-color: rgba(var(--main-color), 1);
+}
+
+.custom-button:disabled {
+    cursor: default;
+    color: grey;
+    border-color: grey;
+}

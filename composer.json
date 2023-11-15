@@ -1,5 +1,11 @@
 {
     "require-dev": {
         "phpunit/phpunit": "^10.4"
-    }
+    },
+    "authors": [
+        {
+            "name": "Paul Louvel",
+            "email": "plouvel@student.42.fr"
+        }
+    ]
 }

@@ -1,0 +1,50 @@
+.custom-field {
+    display: block;
+    width: 100%;
+    font-size: 14px;
+    position: relative;
+    padding-top: 20px;
+}
+
+.custom-field input {
+    padding: 12px;
+    width: 100%;
+    outline: none;
+    background: none;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    transition: border-color 0.3s ease;
+    font-size: 14px;
+}
+
+.custom-field .placeholder {
+    position: absolute;
+    left: 12px;
+    top: calc(50% + 10px);
+    transform: translateY(-50%);
+    transition:
+            top 0.3s ease,
+            font-size 0.3s ease,
+            color 0.3s ease;
+    color: #aaa;
+    pointer-events: none;
+}
+
+.custom-field input + .placeholder {
+    padding: 0 5px;
+}
+
+
+.custom-field input:valid + .placeholder,
+.custom-field input:focus + .placeholder {
+    top: 20px;
+    font-size: 10px;
+    color: #222;
+    background: #fff;
+}
+
+.custom-field input:valid + .placeholder,
+.custom-field input:focus + .placeholder {
+    border-color: #222;
+    transition-delay: 0.1s;
+}

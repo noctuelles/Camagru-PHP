@@ -1,0 +1,28 @@
+:root {
+    --main-color: 79, 59, 204;
+    font-family: sans-serif;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: rgb(var(--main-color));
+}
+
+main {
+    padding: 30px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+hr {
+    border-top: 1px solid #aaaaaa;
+}

@@ -1,5 +1,9 @@
 <?php
 
+namespace Libs;
+
+require_once 'Database.php';
+
 /**
  *
  */
@@ -7,7 +11,8 @@ class Validator
 {
     const DEFAULT_VALIDATION_MESSAGE = [
         'required' => 'The field %s is required.',
-        'email' => 'An valid email is required.',
+        'email' => 'A valid email is required.',
+        'integer' => '',
         'minlen' => 'The field %s must be at least %d.',
         'between' => 'The field %s must be at least %d and at most %d.',
         'same' => 'The %s and %s must be the same.',
@@ -18,7 +23,7 @@ class Validator
     public function __construct(private array $data, private readonly array $fields, private readonly array $fieldRulesMessage) {
     }
 
-    public function validate(): bool
+    public function validate(): array
     {
         $rulesSplittingRegex = '/\s*\|\s*/';
         $onlyRulesMessage = array_filter($this->fieldRulesMessage, fn($message) => is_string($message));
@@ -112,6 +117,10 @@ class Validator
 
     private function isSame(string $field, string $as): bool
     {
+        if (!isset($this->data[$field]) || !isset($this->data[$as])) {
+            return false;
+        }
+
         return $this->data[$field] === $this->data[$as];
     }
 
@@ -134,5 +143,13 @@ class Validator
 
         $pattern = "#.*^(?=.{8,64})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$#";
         return preg_match($pattern, $this->data[$field]);
+    }
+
+    private function isAlpha(string $field) {
+        if (!isset($this->data[$field])) {
+            return false;
+        }
+
+        return ctype_alpha($this->data[$field]);
     }
 }

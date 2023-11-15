@@ -2,3 +2,5 @@
 .idea
 vendor
 images/composer/.cache
+xdebug.log
+.phpunit.cache
