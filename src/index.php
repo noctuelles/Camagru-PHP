@@ -2,8 +2,6 @@
 
 use Libs\ORM\BaseModel;
 
-require_once 'Libs/Database.php';
-
 spl_autoload_register(static function(string $className) {
     $classPath = str_replace('\\', '/', $className);
     $filePath = __DIR__ . '/' . $classPath . '.php';
@@ -15,12 +13,16 @@ spl_autoload_register(static function(string $className) {
     }
 });
 
-global $pdo;
+$requestPath = $_SERVER['PATH_INFO'];
 
-BaseModel::$PDO = $pdo;
+if (substr($requestPath, 1, 5) === 'login') {
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        require_once 'Pages/Login.php';
+    } else {
+        echo 'Post';
+    }
+} else {
+    header('Location: login');
+    echo 'Not found';
+}
 
-$user = new Models\User();
-
-$user->email = 'paul@caca.fr';
-$user->password = 'prout';
-$user->name = 'Paul le con';
